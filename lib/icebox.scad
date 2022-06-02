@@ -38,24 +38,24 @@ module icebox(title = ["ICEBox", 8], subtitle = ["", 6],
 
   // chip tray
   difference() {
-    translate([1, 1, 3]) squircle([size_x - 2 + padsz, size_y - 2, 1], 6);
+    translate([1, 1, 3]) squircle([size_x - 2 + padsz, size_y - 2, box_z], 6);
     
     for(x = [0 : count[0] - 1]) for(y = [0 : count[1] - 1]) {
-      translate([box_padding + box_x * x + (box_margin * x), box_padding + box_y * y + (box_margin * y), 0]) 
-      linear_extrude(5)
-      square([box_x, box_y]);
+      translate([box_padding + box_x * x + (box_margin * x), box_padding + box_y * y + (box_margin * y)]) 
+      //linear_extrude(box_z)
+      cube([box_x, box_y, box_z + 3]);
     }
     
     // title
     rotate([0, 0, 270])
-    translate([-title_x, title_y, 2])
-    linear_extrude(5)
+    translate([-title_x, title_y, box_z])
+    linear_extrude(4)
     text(title[0], title[1], font = "Liberation Sans:style=Bold", valign = "top");
     
     // subtitle
     rotate([0, 0, 270])
-    translate([-title_x, title_y - title[1] - 2, 0])
-    linear_extrude(5)
+    translate([-title_x, title_y - title[1] - 2, box_z])
+    linear_extrude(4)
     text(subtitle[0], subtitle[1], font = "Liberation Sans", valign = "top");
   }
 }
