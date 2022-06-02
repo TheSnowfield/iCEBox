@@ -1,5 +1,8 @@
 ## iCEBox
-This is a tray can storage your chips in.
+This is a tray that can store your beloved chips in.
+
+![iCEBox](https://img.shields.io/static/v1?label=OpenSCAD&message=2021.01&colorA=f9d72c&colorB=green&style=plastic)
+![iCEBoxVer](https://img.shields.io/static/v1?label=iCEBox&message=1.0&color=green&style=plastic)
 
 ## Make your own
 Simply to use as this,
@@ -26,10 +29,11 @@ icebox(
 
 ```
 
-and your iCEBox will come out! :P
-![image](./res/stl-preview.png)
+and your iCEBox will come out! :P  
+<image src="./res/stl-preview.png" width="300px">
 
-I guess you're can't wait to print then enjoy it XD.
+Enjoy!  
+I guess you're can't wait to print it XD.
 
 ## LICENSE
 Licensed under the MIT license with ❤.
