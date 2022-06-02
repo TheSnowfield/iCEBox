@@ -41,8 +41,7 @@ module icebox(title = ["ICEBox", 8], subtitle = ["", 6],
     translate([1, 1, 3]) squircle([size_x - 2 + padsz, size_y - 2, box_z], 6);
     
     for(x = [0 : count[0] - 1]) for(y = [0 : count[1] - 1]) {
-      translate([box_padding + box_x * x + (box_margin * x), box_padding + box_y * y + (box_margin * y)]) 
-      //linear_extrude(box_z)
+      translate([box_padding + box_x * x + (box_margin * x), box_padding + box_y * y + (box_margin * y)])
       cube([box_x, box_y, box_z + 3]);
     }
     
