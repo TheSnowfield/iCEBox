@@ -1,4 +1,4 @@
-use <lib/icebox.scad>
+use <../lib/icebox.scad>
 
 icebox(
   title    = ["STM32", 5],
