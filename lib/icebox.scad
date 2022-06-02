@@ -14,7 +14,7 @@ module squircle(size = [1, 1, 1], r = 0.5, center = false) {
   }
 }
 
-module icebox(title = ["ICEBox", 8], subtitle = ["Chip box", 6], 
+module icebox(title = ["ICEBox", 8], subtitle = ["", 6], 
               chip = [8, 8, 1], count = [1, 1], padsz = 15) {
 
   // chip box size
@@ -30,8 +30,8 @@ module icebox(title = ["ICEBox", 8], subtitle = ["Chip box", 6],
   size_z = box_z + 1;
   
   // title size
-  title_x = size_x - box_padding;
-  title_y = size_y + (padsz - title[1]) / 2;
+  title_x = size_y - box_padding;
+  title_y = size_x + padsz - box_padding;
   
   // bottom pad
   squircle([size_x + padsz, size_y, 3], 6);
@@ -48,14 +48,14 @@ module icebox(title = ["ICEBox", 8], subtitle = ["Chip box", 6],
     
     // title
     rotate([0, 0, 270])
-    translate([-title_x, title_y, 0])
+    translate([-title_x, title_y, 2])
     linear_extrude(5)
-    text(title[0], title[1], font = "Liberation Sans:style=Bold", valign = "bottom");
+    text(title[0], title[1], font = "Liberation Sans:style=Bold", valign = "top");
     
     // subtitle
     rotate([0, 0, 270])
     translate([-title_x, title_y - title[1] - 2, 0])
     linear_extrude(5)
-    text(subtitle[0], subtitle[1], font = "Liberation Sans", valign = "bottom");
+    text(subtitle[0], subtitle[1], font = "Liberation Sans", valign = "top");
   }
 }
