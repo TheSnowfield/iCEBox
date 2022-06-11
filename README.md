@@ -2,29 +2,33 @@
 This is a tray that can store your beloved chips in.
 
 ![iCEBox](https://img.shields.io/static/v1?label=OpenSCAD&message=2021.01&colorA=f9d72c&colorB=green&style=plastic)
-![iCEBoxVer](https://img.shields.io/static/v1?label=iCEBox&message=1.0&color=green&style=plastic)
+![iCEBoxVer](https://img.shields.io/static/v1?label=iCEBox&message=2.0&color=green&style=plastic)
 
 ## Make your own
 Simply to use as this,
 ```scad
-use <lib/icebox.scad>
+use <../lib/icebox.scad>
+use <../lib/icebox-cover.scad>
+
+// declare your chip package size
+// 8.0mm * 8.0mm * 1.0mm
+chip_x = 8;
+chip_y = 8;
+chip_z = 1;
+
+// how many columns and rows
+// 6 x 10 boxes
+box_size = [6, 10];
 
 icebox(
-  // the title
-  title    = ["STM32", 5],
+  chip   = [chip_x, chip_y, chip_z],
+  count  = box_size
+);
 
-  // the description
-  subtitle = ["F401CCU6", 5],
-
-  // declare your chip package size
-  // 7.5mm *7.5mm * 1.0mm
-  chip   = [7.5, 7.5, 1],
-
-  // declare how many chips you want to store
-  count  = [5,  5],
-
-  // pad size for the title
-  padsz  = 18
+translate([0, 110, 0])
+icebox_cover(
+  chip   = [chip_x, chip_y, chip_z],
+  count  = box_size
 );
 
 ```

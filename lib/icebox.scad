@@ -1,60 +1,43 @@
+use <squircle.scad>
 $fs = 0.1;
 
-module squircle(size = [1, 1, 1], r = 0.5, center = false) {
-  x = size[0] - r * 2;
-  y = size[1] - r * 2;
-  z = size[2];
-  
-  translate(center ? [-(x / 2), -(y / 2), 0] : [r, r, 0])
-  hull() {
-    translate([0, 0, 0]) cylinder(z, r = r);
-    translate([x, 0, 0]) cylinder(z, r = r);
-    translate([0, y, 0]) cylinder(z, r = r);
-    translate([x, y, 0]) cylinder(z, r = r);
-  }
-}
+module icebox(chip = [8, 8, 1], count = [1, 1]) {
 
-module icebox(title = ["ICEBox", 8], subtitle = ["", 6], 
-              chip = [8, 8, 1], count = [1, 1], padsz = 15) {
+  assert(chip[0] > 0, "chip package width could not be 0.");
+  assert(chip[1] > 0, "chip package height could not be 0.");
+  assert(chip[2] > 0, "chip package thickness could not be 0.");
+
+  assert(count[0] > 0, "row could not be 0.");
+  assert(count[1] > 0, "column could not be 0.");
 
   // chip box size
-  box_x = chip[0];
-  box_y = chip[1];
-  box_z = chip[2];
-  box_margin  = 1;
-  box_padding = 4;
-    
+  chip_x = chip[0];
+  chip_y = chip[1];
+  chip_z = chip[2];
+  chip_margin  = 1;
+  chip_padding = 4;
+
   // bottom pad size
-  size_x = ((chip[0] + box_margin) * count[0]) + box_padding * 2 - box_margin;
-  size_y = ((chip[1] + box_margin) * count[1]) + box_padding * 2 - box_margin;
-  size_z = box_z + 1;
-  
-  // title size
-  title_x = size_y - box_padding;
-  title_y = size_x + padsz - box_padding;
-  
-  // bottom pad
-  squircle([size_x + padsz, size_y, 3], 6);
+  size_fixed_z = 3;
+  size_x = ((chip[0] + chip_margin) * count[0]) + chip_padding * 2 - chip_margin;
+  size_y = ((chip[1] + chip_margin) * count[1]) + chip_padding * 2 - chip_margin;
+  size_z = chip_z + size_fixed_z;
 
   // chip tray
   difference() {
-    translate([1, 1, 3]) squircle([size_x - 2 + padsz, size_y - 2, box_z], 6);
-    
+
+    // body
+    translate([0, 0, 0])
+    squircle([size_x, size_y, size_z], 2);
+
+    // grids
     for(x = [0 : count[0] - 1]) for(y = [0 : count[1] - 1]) {
-      translate([box_padding + box_x * x + (box_margin * x), box_padding + box_y * y + (box_margin * y)])
-      cube([box_x, box_y, box_z + 3]);
+      translate([chip_padding + chip_x * x + (chip_margin * x), chip_padding + chip_y * y + (chip_margin * y), size_fixed_z])
+      cube([chip_x, chip_y, chip_z + 1]);
     }
-    
-    // title
-    rotate([0, 0, 270])
-    translate([-title_x, title_y, box_z])
-    linear_extrude(4)
-    text(title[0], title[1], font = "Liberation Sans:style=Bold", valign = "top");
-    
-    // subtitle
-    rotate([0, 0, 270])
-    translate([-title_x, title_y - title[1] - 2, box_z])
-    linear_extrude(4)
-    text(subtitle[0], subtitle[1], font = "Liberation Sans", valign = "top");
   }
+  
+  // outside chip fasteners
+  translate([chip_padding / 2 - 0.5, chip_padding / 2 - 0.5, size_z])
+  squircle_outline([size_x - chip_padding + 1, size_y - chip_padding + 1, 1.5], 0.8, 1);
 }
